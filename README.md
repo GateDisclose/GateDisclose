@@ -1,23 +1,30 @@
 # GateDisclose
 
-I'm Paolina, a DevOps engineer with a script hoarding problem. I keep the one-off fixes, name them after the incident, and turn the useful ones into gates that say no before prod does.
+I'm Desmond, a platform/DevOps person who hoards small scripts until they become a toolbox. If a task has been run twice, I'm already writing the wrapper for it.
 
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=heckbertpaolina&show_icons=true&hide_rank=true&theme=tokyonight&title_color=7aa2f7&icon_color=bb9af7&text_color=c0caf5&bg_color=1a1b26&border_radius=8&hide_border=true)
-![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=heckbertpaolina&layout=compact&theme=tokyonight&title_color=7aa2f7&icon_color=bb9af7&text_color=c0caf5&bg_color=1a1b26&border_radius=8&hide_border=true)
+## Usually building
+- Idempotent shell scripts for things that should have been one command.
+- Pipeline glue, deploy helpers, and backup checks.
+- Log triage with `rg`, `jq`, and low expectations.
+- Runbooks that actually match the system.
 
-## The hoard
-Shell scripts, dotfiles, cron wrappers, rollback notes, and a growing folder called `maybe-useful`. If it ran twice, it gets a README and a test.
+## Current learning
+Go, for the CLIs that outgrew bash. Also making my Ansible a bit less haunted.
 
-## What I build
-Deploy pipelines that fail early and explain themselves. Terraform plan checks, secrets scans, OPA/Rego policies, and small CLIs that make on-call less archaeological.
-
-## Reusable gate
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-find scripts -name '*.sh' -print0 | xargs -0 shellcheck
-git diff --exit-code -- .github/workflows
+
+# if this looks disposable, it probably touches production
+main() {
+  echo "checking the thing before automating the thing"
+}
+
+main "$@"
 ```
 
-## Currently learning
-How to write less bash and more Rego, plus making reusable GitHub Actions that are not a haunted house of inputs.
+## Around the repos
+Mostly small utilities: cron cleanup, incident notes to checks, container build helpers, and infra glue. If you find one of these scripts in the wild, open an issue before it becomes a cron job.
+
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=GateDisclose&show_icons=true&theme=tokyonight&hide_border=true&border_radius=8)
+![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=GateDisclose&layout=compact&theme=tokyonight&hide_border=true&border_radius=8)
