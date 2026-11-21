@@ -1,30 +1,25 @@
-# GateDisclose
+# Rhea Kulkarni
 
-I'm Desmond, a platform/DevOps person who hoards small scripts until they become a toolbox. If a task has been run twice, I'm already writing the wrapper for it.
+I build small, observable data pipelines. The goal is usually the same: if a batch job breaks at 3am, the next person can see why, fix it, and rerun only what failed.
 
-## Usually building
-- Idempotent shell scripts for things that should have been one command.
-- Pipeline glue, deploy helpers, and backup checks.
-- Log triage with `rg`, `jq`, and low expectations.
-- Runbooks that actually match the system.
+## What I'm working on
 
-## Current learning
-Go, for the CLIs that outgrew bash. Also making my Ansible a bit less haunted.
+- Contract-first ingestion for CSV drops that never fail silently.
+- A Dagster + dbt setup where tests are part of the pipeline, not a separate chore.
+- Local debugging with DuckDB so I don't need a warehouse clone for every small change.
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-
-# if this looks disposable, it probably touches production
-main() {
-  echo "checking the thing before automating the thing"
-}
-
-main "$@"
+```python
+@asset
+def clean_orders(rows):
+    return (
+        rows.drop_duplicates()
+        .assign(order_date=lambda df: to_date(df["order_date"]))
+    )
 ```
 
-## Around the repos
-Mostly small utilities: cron cleanup, incident notes to checks, container build helpers, and infra glue. If you find one of these scripts in the wild, open an issue before it becomes a cron job.
+## Currently learning
 
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=GateDisclose&show_icons=true&theme=tokyonight&hide_border=true&border_radius=8)
-![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=GateDisclose&layout=compact&theme=tokyonight&hide_border=true&border_radius=8)
+How to make data contracts feel less like paperwork and more like guardrails.
+
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=gatedisclose&show_icons=true&theme=tokyonight&hide_border=true)
+![Top languages](https://github-readme-stats.vercel.app/api/top-langs/?username=gatedisclose&layout=compact&theme=tokyonight&hide_border=true)
